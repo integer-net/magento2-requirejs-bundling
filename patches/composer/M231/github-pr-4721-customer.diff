@@ -1,0 +1,98 @@
+--- a/view/frontend/templates/js/customer-data.phtml
++++ b/view/frontend/templates/js/customer-data.phtml
+@@ -6,14 +6,15 @@
+ /** @var \Magento\Customer\Block\CustomerData $block */
+ ?>
+ <script type="text/x-magento-init">
+-<?= /* @noEscape */ $this->helper(\Magento\Framework\Json\Helper\Data::class)->jsonEncode([
+-        '*' => ['Magento_Customer/js/customer-data' => [
+-            'sectionLoadUrl' => $block->getCustomerDataUrl('customer/section/load'),
+-            'expirableSectionLifetime' => $block->getExpirableSectionLifetime(),
+-            'expirableSectionNames' => $block->getExpirableSectionNames(),
+-            'cookieLifeTime' => $block->getCookieLifeTime(),
+-            'updateSessionUrl' => $block->getCustomerDataUrl('customer/account/updateSession'),
+-        ]],
+-    ]);
+-?>
++    {
++        "*": {
++            "Magento_Customer/js/customer-data": {
++                "sectionLoadUrl": "<?= $block->escapeJs($block->escapeUrl($block->getCustomerDataUrl('customer/section/load'))) ?>",
++                "expirableSectionLifetime": <?= (int)$block->getExpirableSectionLifetime() ?>,
++                "expirableSectionNames": <?= /* @noEscape */ $this->helper(\Magento\Framework\Json\Helper\Data::class)->jsonEncode($block->getExpirableSectionNames()) ?>,
++                "cookieLifeTime": "<?= $block->escapeJs($block->getCookieLifeTime()) ?>",
++                "updateSessionUrl": "<?= $block->escapeJs($block->escapeUrl($block->getCustomerDataUrl('customer/account/updateSession'))) ?>"
++            }
++        }
++    }
+ </script>
+diff --git a/view/frontend/templates/js/customer-data/invalidation-rules.phtml b/view/frontend/templates/js/customer-data/invalidation-rules.phtml
+index 15d0f5226577..4f8a917d1ed6 100644
+--- a/view/frontend/templates/js/customer-data/invalidation-rules.phtml
++++ b/view/frontend/templates/js/customer-data/invalidation-rules.phtml
+@@ -7,18 +7,19 @@
+ /* @var $block \Magento\Customer\Block\CustomerScopeData */
+ ?>
+ <script type="text/x-magento-init">
+-<?= /* @noEscape */ $block->encodeConfiguration([
+-        '*' => ['Magento_Customer/js/invalidation-processor' => [
+-            'invalidationRules' => [
+-                'website-rule' => [
+-                    'Magento_Customer/js/invalidation-rules/website-rule' => [
+-                        'scopeConfig' => [
+-                            'websiteId' => $block->getWebsiteId(),
+-                        ]
+-                    ]
+-                ]
+-            ]
+-        ]],
+-    ]);
+-?>
++    {
++        "*": {
++            "Magento_Customer/js/invalidation-processor": {
++                "invalidationRules": {
++                    "website-rule": {
++                        "Magento_Customer/js/invalidation-rules/website-rule": {
++                            "scopeConfig": {
++                                "websiteId": "<?= $block->escapeJs($block->getWebsiteId()) ?>"
++                            }
++                        }
++                    }
++                }
++            }
++        }
++    }
+ </script>
+diff --git a/view/frontend/templates/js/section-config.phtml b/view/frontend/templates/js/section-config.phtml
+index 94ab4757898c..ebbd16164d7e 100644
+--- a/view/frontend/templates/js/section-config.phtml
++++ b/view/frontend/templates/js/section-config.phtml
+@@ -6,15 +6,16 @@
+ /** @var \Magento\Customer\Block\SectionConfig $block */
+ ?>
+ <script type="text/x-magento-init">
+-<?= /* @noEscape */ $this->helper(\Magento\Framework\Json\Helper\Data::class)->jsonEncode([
+-        '*' => ['Magento_Customer/js/section-config' => [
+-            'sections' => $block->getSections(),
+-            'clientSideSections' => $block->getClientSideSections(),
+-            'baseUrls' => array_unique([
+-                $block->getUrl(null, ['_secure' => true]),
+-                $block->getUrl(null, ['_secure' => false]),
+-            ]),
+-        ]],
+-    ]);
+-?>
++    {
++        "*": {
++            "Magento_Customer/js/section-config": {
++                "sections": <?= /* @noEscape */ $this->helper(\Magento\Framework\Json\Helper\Data::class)->jsonEncode($block->getSections()) ?>,
++                "clientSideSections": <?= /* @noEscape */ $this->helper(\Magento\Framework\Json\Helper\Data::class)->jsonEncode($block->getClientSideSections()) ?>,
++                "baseUrls": <?= /* @noEscape */ $this->helper(\Magento\Framework\Json\Helper\Data::class)->jsonEncode(array_unique([
++                    $block->getUrl(null, ['_secure' => true]),
++                    $block->getUrl(null, ['_secure' => false]),
++                ])) ?>
++            }
++        }
++    }
+ </script>

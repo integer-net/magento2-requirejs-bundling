@@ -1,0 +1,15 @@
+diff --git a/view/base/templates/product/price/msrp.phtml b/view/base/templates/product/price/msrp.phtml
+index 2ab40a7ec829..b062e911876c 100644
+--- a/view/base/templates/product/price/msrp.phtml
++++ b/view/base/templates/product/price/msrp.phtml
+@@ -88,7 +88,7 @@ $priceElementIdPrefix = $block->getPriceElementIdPrefix() ? $block->getPriceElem
+        id="<?= /* @noEscape */ ($popupId) ?>"
+        class="action map-show-info"
+        <?php //phpcs:disable ?>
+-       data-mage-init='<?= /* @noEscape */ $this->helper(\Magento\Framework\Json\Helper\Data::class)->jsonEncode($data) ?>'>
++       data-mage-init='{"addToCart":<?= /* @noEscape */ $this->helper('Magento\Framework\Json\Helper\Data')->jsonEncode($data) ?>}'>
+         <?php //phpcs:enable ?>
+         <?= $block->escapeHtml(__('Click for price')) ?>
+     </a>
+ <?php else: ?>
+     <span class="msrp-message">

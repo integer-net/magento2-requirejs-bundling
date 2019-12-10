@@ -1,0 +1,57 @@
+diff --git a/view/base/requirejs-config.js b/view/base/requirejs-config.js
+index 2822d6db008a..f5580461f7d9 100644
+--- a/view/base/requirejs-config.js
++++ b/view/base/requirejs-config.js
+@@ -19,20 +19,14 @@ var config = {
+         'jquery/hover-intent': ['jquery'],
+         'mage/adminhtml/backup': ['prototype'],
+         'mage/captcha': ['prototype'],
+-        'mage/common': ['jquery'],
+         'mage/new-gallery': ['jquery'],
+         'mage/webapi': ['jquery'],
+         'jquery/ui': ['jquery'],
+         'MutationObserver': ['es6-collections'],
+-        'moment': {
+-            'exports': 'moment'
+-        },
+         'matchMedia': {
+             'exports': 'mediaCheck'
+         },
+-        'jquery/jquery-storageapi': {
+-            'deps': ['jquery/jquery.cookie']
+-        }
++        'magnifier/magnifier': ['jquery']
+     },
+     'paths': {
+         'jquery/validate': 'jquery/jquery.validate',
+diff --git a/view/frontend/requirejs-config.js b/view/frontend/requirejs-config.js
+index d1cf76b83ebb..c41a0602ef3e 100644
+--- a/view/frontend/requirejs-config.js
++++ b/view/frontend/requirejs-config.js
+@@ -44,7 +44,7 @@ var config = {
+             'Magento_Theme/js/view/breadcrumbs': {
+                 'Magento_Theme/js/view/add-home-breadcrumb': true
+             },
+-            'jquery/jquery-ui': {
++            'jquery/ui-modules/dialog': {
+                 'jquery/patches/jquery-ui': true
+             }
+         }
+diff --git a/view/frontend/templates/html/sections.phtml b/view/frontend/templates/html/sections.phtml
+index 602749ba04de..7f1128b3b07c 100644
+--- a/view/frontend/templates/html/sections.phtml
++++ b/view/frontend/templates/html/sections.phtml
+@@ -10,13 +10,12 @@
+ 
+ $group = $block->getGroupName();
+ $groupCss = $block->getGroupCss();
+-$groupBehavior = $block->getGroupBehaviour() ? $block->getGroupBehaviour() : '{"tabs":{"openedState":"active"}}';
+ ?>
+ <?php if ($detailedInfoGroup = $block->getGroupChildNames($group, 'getChildHtml')):?>
+     <div class="sections <?= /* @escapeNotVerified */ $groupCss ?>">
+         <?php $layout = $block->getLayout(); ?>
+-        <div class="section-items <?= /* @escapeNotVerified */ $groupCss ?>-items" data-mage-init='<?= /* @escapeNotVerified */ $groupBehavior ?>'>
++        <div class="section-items <?= /* @escapeNotVerified */ $groupCss ?>-items" data-mage-init='<?= /* @escapeNotVerified */ '{"tabs":{"openedState":"active"}}' ?>'>
+             <?php foreach ($detailedInfoGroup as $name):?>
+                 <?php
+                     $html = $layout->renderElement($name);

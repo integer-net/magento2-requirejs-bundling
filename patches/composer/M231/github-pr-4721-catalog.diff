@@ -1,0 +1,36 @@
+diff --git a/view/frontend/templates/product/breadcrumbs.phtml b/view/frontend/templates/product/breadcrumbs.phtml
+index c4aa84704b59..fd18db94fdc8 100644
+--- a/view/frontend/templates/product/breadcrumbs.phtml
++++ b/view/frontend/templates/product/breadcrumbs.phtml
+@@ -8,8 +8,14 @@
+ $viewModel = $block->getData('viewModel');
+ ?>
+ <div class="breadcrumbs"></div>
++<?php
++$widget = $this->helper(\Magento\Framework\Json\Helper\Data::class)->jsonDecode($viewModel->getJsonConfigurationHtmlEscaped());
++$widgetOptions = $this->helper(\Magento\Framework\Json\Helper\Data::class)->jsonEncode($widget['breadcrumbs']);
++?>
+ <script type="text/x-magento-init">
+-        {
+-            ".breadcrumbs": <?= $viewModel->getJsonConfigurationHtmlEscaped() ?>
++    {
++        ".breadcrumbs": {
++            "breadcrumbs": <?= /* @noEscape */ $widgetOptions ?>
+         }
++    }
+ </script>
+diff --git a/view/frontend/templates/product/list/toolbar.phtml b/view/frontend/templates/product/list/toolbar.phtml
+index b2ae8b9f7ab1..76ef6baf4993 100644
+--- a/view/frontend/templates/product/list/toolbar.phtml
++++ b/view/frontend/templates/product/list/toolbar.phtml
+@@ -15,7 +15,10 @@
+ ?>
+ <?php if ($block->getCollection()->getSize()): ?>
+-    <div class="toolbar toolbar-products" data-mage-init='<?= /* @escapeNotVerified */ $block->getWidgetOptionsJson() ?>'>
++    <?php $widget = $this->helper(\Magento\Framework\Json\Helper\Data::class)->jsonDecode($block->getWidgetOptionsJson());
++        $widgetOptions = $this->helper(\Magento\Framework\Json\Helper\Data::class)->jsonEncode($widget['productListToolbarForm']);
++    ?>
++    <div class="toolbar toolbar-products" data-mage-init='{"productListToolbarForm":<?= /* @noEscape */ $widgetOptions ?>}'>
+         <?php if ($block->isExpanded()): ?>
+             <?php include ($block->getTemplateFile('Magento_Catalog::product/list/toolbar/viewmode.phtml')) ?>
+         <?php endif; ?>

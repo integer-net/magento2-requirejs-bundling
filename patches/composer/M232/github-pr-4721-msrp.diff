@@ -1,0 +1,38 @@
+diff --git a/view/base/templates/product/price/msrp.phtml b/view/base/templates/product/price/msrp.phtml
+index 2ab40a7ec829..b062e911876c 100644
+--- a/view/base/templates/product/price/msrp.phtml
++++ b/view/base/templates/product/price/msrp.phtml
+@@ -59,7 +59,7 @@ $priceElementIdPrefix = $block->getPriceElementIdPrefix() ? $block->getPriceElem
+
+     $priceElementId = $priceElementIdPrefix . $productId . $block->getIdSuffix();
+     $popupId = 'msrp-popup-' . $productId . $block->getRandomString(20);
+-    $data = ['addToCart' => [
++    $data = [
+         'origin'=> 'msrp',
+         'popupId' => '#' . $popupId,
+         'productName' => $block->escapeJs($block->escapeHtml($product->getName())),
+@@ -72,11 +72,11 @@ $priceElementIdPrefix = $block->getPriceElementIdPrefix() ? $block->getPriceElem
+         'closeButtonId' => '#map-popup-close',
+         'addToCartUrl' => $addToCartUrl,
+         'paymentButtons' => '[data-label=or]'
+-    ]];
++    ];
+     if ($block->getRequest()->getFullActionName() === 'catalog_product_view') {
+-        $data['addToCart']['addToCartButton'] = '#product_addtocart_form [type=submit]';
++        $data['addToCartButton'] = '#product_addtocart_form [type=submit]';
+     } else {
+-        $data['addToCart']['addToCartButton'] = sprintf(
++        $data['addToCartButton'] = sprintf(
+             'form:has(input[type="hidden"][name="product"][value="%s"]) button[type="submit"]',
+             (int) $productId . ',' .
+             sprintf(
+@@ -88,7 +88,7 @@ $priceElementIdPrefix = $block->getPriceElementIdPrefix() ? $block->getPriceElem
+        id="<?= /* @escapeNotVerified */ ($popupId) ?>"
+        class="action map-show-info"
+-       data-mage-init='<?= /* @noEscape */ $this->helper('Magento\Framework\Json\Helper\Data')->jsonEncode($data) ?>'><?= /* @escapeNotVerified */ __('Click for price') ?>
++       data-mage-init='{"addToCart":<?= /* @noEscape */ $this->helper('Magento\Framework\Json\Helper\Data')->jsonEncode($data) ?>}'><?= /* @escapeNotVerified */ __('Click for price') ?>
+     </a>
+ <?php else: ?>
+     <span class="msrp-message">
+      <?= /* @escapeNotVerified */ $priceType->getMsrpPriceMessage() ?>
+     </span>

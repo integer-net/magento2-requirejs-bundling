@@ -1,0 +1,20 @@
+diff --git a/view/frontend/templates/html/sections.phtml b/view/frontend/templates/html/sections.phtml
+index 602749ba04de..7f1128b3b07c 100644
+--- a/view/frontend/templates/html/sections.phtml
++++ b/view/frontend/templates/html/sections.phtml
+@@ -10,14 +10,13 @@
+ 
+ $group = $block->getGroupName();
+ $groupCss = $block->getGroupCss();
+-$groupBehavior = $block->getGroupBehaviour() ? $block->getGroupBehaviour() : '{"tabs":{"openedState":"active"}}';
+ ?>
+ <?php if ($detailedInfoGroup = $block->getGroupChildNames($group, 'getChildHtml')) :?>
+     <div class="sections <?= $block->escapeHtmlAttr($groupCss) ?>">
+         <?php $layout = $block->getLayout(); ?>
+-        <div class="section-items <?= $block->escapeHtmlAttr($groupCss) ?>-items"
+-             data-mage-init='<?= $block->escapeHtmlAttr($groupBehavior) ?>'>
++        <div class="section-items <?= /* @escapeNotVerified */ $groupCss ?>-items"
++             data-mage-init='<?= /* @escapeNotVerified */ '{"tabs":{"openedState":"active"}}' ?>'>
+             <?php foreach ($detailedInfoGroup as $name) :?>
+                 <?php
+                     $html = $layout->renderElement($name);
