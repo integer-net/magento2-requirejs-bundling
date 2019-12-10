@@ -4,11 +4,21 @@
 
 ({
   // Set "optimize" to "none" to speed up bundling while debugging
-  "optimize": "uglify2",
+  "optimize": "none",
   "generateSourceMaps": true,
   "wrapShim": true,
   "inlineText": true,
   "modules": [
+    {
+      name: "requirejs/require",
+      include: [
+        "mage/common",
+        "jquery/jquery.cookie",
+        "jquery/jquery-storageapi",
+      ],
+      exclude: [
+      ]
+    },
     {
       // Modules used on > 1 page(s) of the store
       "name": "bundles/shared",
@@ -259,7 +269,9 @@
         "text!ui/template/form/element/input.html",
         "text!Magento_Tax/template/checkout/shipping_method/price.html"
       ],
-      "exclude": [],
+      "exclude": [
+        "requirejs/require"
+      ],
       "create": true
     },
     {
@@ -366,6 +378,7 @@
         "mage/dropdowns"
       ],
       "exclude": [
+        "requirejs/require",
         "bundles/shared"
       ]
     },
@@ -424,6 +437,7 @@
         "text!Magento_Checkout/template/cart/shipping-estimation.html"
       ],
       "exclude": [
+        "requirejs/require",
         "bundles/shared"
       ]
     },
@@ -459,6 +473,7 @@
         "Magento_Catalog/js/upsell-products"
       ],
       "exclude": [
+        "requirejs/require",
         "bundles/shared"
       ]
     },
@@ -471,6 +486,7 @@
         "Magento_Wishlist/js/view/wishlist"
       ],
       "exclude": [
+        "requirejs/require",
         "bundles/shared"
       ]
     }
@@ -725,5 +741,25 @@
       "klarnapi": "empty:",
       "set-checkout-messages": "Vertex_Tax/js/model/set-checkout-messages"
     }
-  }
+  },
+  onModuleBundleComplete: function (data) {
+    function onBundleComplete (config, data) {
+      const fileName = `${config.dir}/requirejs-config.js`;
+      const bundleConfig = {};
+
+      // We skip requirejs/require because we don't want it to be loaded asynchronously
+      if(data.name === 'requirejs/require') { return }
+
+      bundleConfig[data.name] = data.included;
+      bundleConfig[data.name] = bundleConfig[data.name].map(bundle => bundle.replace(/\.js$/, ''));
+      const contents = `require.config({
+           bundles: ${JSON.stringify(bundleConfig)},
+       });`;
+      fs.appendFile(fileName, contents, function (err) {
+        if (err) throw err;
+        console.log(`Bundle data for ${data.name} saved into ${fileName}`);
+      });
+    }
+    onBundleComplete(config, data);
+  },
 })
