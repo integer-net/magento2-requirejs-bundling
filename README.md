@@ -1,8 +1,7 @@
 # magento2-requirejs-bundling
 Tools, patches and snippets for Magento 2 RequireJS Bundling
 
-This repository will accompany our "Ultimate guide to Magento 2 JavaScript bundling" blog post on https://integer-net.de/.
-We'll change that link when it's live.
+This repository will accompanies our "Ultimate guide to Magento 2 JavaScript bundling" blog post on https://www.integer-net.com/ultimate-guide-magento-2-javascript-bundling/.
 
 ## RequireJS bundling config
 There's an example `requirejs-bundle-config.js` file here [/requirejs-bundle-configuration](/requirejs-bundle-configuration)
