@@ -117,3 +117,16 @@ For Magento 2.3.3:
         }
     }
 ```
+
+For Magento 2.3.4:
+```json
+"extra": {
+        "magento-force": "override",
+        "composer-exit-on-patch-failure": true,
+        "patches": {
+            "magento/magento2-base": {
+                "Refactor JavaScript mixins module https://github.com/magento/magento2/pull/25587": "patches/composer/M234/github-pr-25587-base.diff"
+            }
+        }
+    }
+```
