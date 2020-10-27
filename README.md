@@ -11,6 +11,7 @@ If you look at the diff of the last commit, you can see the changes we made to t
 ## Patches
 
 ! Starting version 2.3.6 patches are no longer needed.
+
 To use RequireJS bundling in Magento 2 (up to version 2.3.5) you need a few patches:
 
 - https://github.com/magento/magento2/pull/25587
