@@ -10,7 +10,8 @@ If you look at the diff of the last commit, you can see the changes we made to t
 
 ## Patches
 
-To use RequireJS bundling in Magento 2 (up to version 2.3.3) you need a few patches.
+! Starting version 2.3.6 patches are no longer needed.
+To use RequireJS bundling in Magento 2 (up to version 2.3.5) you need a few patches:
 
 - https://github.com/magento/magento2/pull/25587
 - https://github.com/magento/magento2/commit/db43c11c6830465b764ede32abb7262258e5f574
@@ -118,7 +119,7 @@ For Magento 2.3.3:
     }
 ```
 
-For Magento 2.3.4:
+For Magento 2.3.4 abd 2.3.5:
 ```json
 "extra": {
         "magento-force": "override",
@@ -130,3 +131,6 @@ For Magento 2.3.4:
         }
     }
 ```
+
+For Magento 2.3.4 abd 2.3.6:
+NO PATCHES NEEDED
