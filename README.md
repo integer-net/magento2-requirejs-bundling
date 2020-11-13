@@ -96,7 +96,8 @@ For Magento 2.3.3:
         "patches": {
             "magento/magento2-base": {
                 "[Performance] Fix missing shims and phtml files with mage-init directives (https://github.com/magento/magento2/commit/db43c11c6830465b764ede32abb7262258e5f574)": "patches/composer/M233/github-pr-4721-base.diff",
-                "Refactor JavaScript mixins module https://github.com/magento/magento2/pull/25587": "patches/composer/M233/github-pr-25587-base.diff"
+                "Refactor JavaScript mixins module https://github.com/magento/magento2/pull/25587": "patches/composer/M233/github-pr-25587-base.diff",
+                "Fix handling of mixins for modules with no dependencies defined (https://github.com/magento/magento2/pull/27690/commits/97f0a1f34efc7c40c97014800cc876e9aedcdc0f)": "patches/composer/M233/github-pr-27690-base.diff"
             },
             "magento/module-braintree": {
                 "[Performance] Fix missing shims and phtml files with mage-init directives (https://github.com/magento/magento2/commit/db43c11c6830465b764ede32abb7262258e5f574)": "patches/composer/M233/github-pr-4721-braintree.diff"

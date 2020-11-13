@@ -1,0 +1,19 @@
+diff --git a/lib/web/mage/requirejs/mixins.js b/lib/web/mage/requirejs/mixins.js
+index acda3eb..74776a2 100644
+--- a/lib/web/mage/requirejs/mixins.js
++++ b/lib/web/mage/requirejs/mixins.js
+@@ -232,9 +232,12 @@ require([
+      * from it every time require call happens.
+      */
+     defContext.defQueue.shift = function () {
+-        var queueItem = Array.prototype.shift.call(this);
++        var queueItem = Array.prototype.shift.call(this),
++            lastDeps = queueItem && queueItem[1];
+ 
+-        queueItem[1] = processNames(queueItem[1], defContext);
++        if (Array.isArray(lastDeps)) {
++            queueItem[1] = processNames(queueItem[1], defContext);
++        }
+ 
+         return queueItem;
+     };
